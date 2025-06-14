@@ -1,5 +1,22 @@
 providers:
   - id: virtual-ta
-    type: rest
-    config:
-      url: ttps://2e88-2401-4900-1c5d-88cc-111d-a339-fb31-9d31.ngrok-free.app/docs
+    label: Virtual TA API
+    rest:
+      url: https://a627-2401-4900-1c5d-88cc-111d-a339-fb31-9d31.ngrok-free.app/api/
+      method: POST
+      headers:
+        Content-Type: application/json
+      body: |
+        {
+          "question": "{{ prompt }}"
+        }
+      responsePath: answer
+
+prompts:
+  - prompt: What is the deadline for Project 1?
+
+tests:
+  - assert:
+      - provider: virtual-ta
+        value: Project
+        operator: contains
