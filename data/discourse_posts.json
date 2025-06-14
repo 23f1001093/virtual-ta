@@ -1,0 +1,14 @@
+[
+  {
+    "title": "GA5 Clarification",
+    "url": "https://discourse.onlinedegree.iitm.ac.in/t/ga5-question-8/12345",
+    "posts": [
+      {
+        "content": "Use gpt-3.5 even if gpt-4o-mini is available."
+      },
+      {
+        "content": "Use the tokenizer method for cost calculation."
+      }
+    ]
+  }
+]

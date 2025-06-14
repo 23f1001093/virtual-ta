@@ -1,0 +1,10 @@
+# Ignore Python environment and cache
+venv/
+__pycache__/
+*.py[cod]
+
+# Ignore environment variables
+.env
+
+# Ignore FAISS binary index (optional)
+*.bin
