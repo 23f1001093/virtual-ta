@@ -12,12 +12,16 @@ load_dotenv()
 
 EMAIL = os.getenv("DISCOURSE_EMAIL")
 PASSWORD = os.getenv("DISCOURSE_PASSWORD")
+
+if not EMAIL or not PASSWORD:
+    raise ValueError("❌ DISCOURSE_EMAIL or DISCOURSE_PASSWORD is missing. Check your .env file.")
+
 LOGIN_URL = "https://discourse.onlinedegree.iitm.ac.in/login"
 CATEGORY_URL = "https://discourse.onlinedegree.iitm.ac.in/c/courses/tds-kb/34"
 
 def setup_driver():
     options = Options()
-    options.headless = False  # Set to True when you're confident login works
+    options.headless = False
     options.add_argument("--window-size=1920,1080")
     return webdriver.Chrome(options=options)
 
@@ -31,7 +35,7 @@ def login(driver):
     password_input.send_keys(PASSWORD)
     password_input.send_keys(Keys.RETURN)
 
-    time.sleep(5)  # wait for login
+    time.sleep(5)
 
 def get_discourse_posts(driver):
     driver.get(CATEGORY_URL)
@@ -52,11 +56,12 @@ def get_discourse_posts(driver):
         time.sleep(2)
         post_soup = BeautifulSoup(driver.page_source, 'html.parser')
         posts = post_soup.select("div.cooked")
-        content = "\n\n".join(p.get_text(separator="\n", strip=True) for p in posts)
         results.append({
             "title": topic["title"],
             "url": topic["url"],
-            "content": content
+            "posts": [
+                {"content": p.get_text(separator="\n", strip=True)} for p in posts
+            ]
         })
 
     return results
