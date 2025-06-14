@@ -1,0 +1,5 @@
+providers:
+  - id: virtual-ta
+    type: rest
+    config:
+      url: ttps://2e88-2401-4900-1c5d-88cc-111d-a339-fb31-9d31.ngrok-free.app/docs
